@@ -9,12 +9,19 @@ using AppNotas.Modelo;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using Plugin.Media;
+using Plugin.Media.Abstractions;
+using Xamarin.Essentials;
+using System.IO;
 
 namespace FloristeriaProyecto.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class PageRegistro : ContentPage
     {
+        byte[] Image;
+        MediaFile FileFoto = null;
+        
         public PageRegistro()
         {
             InitializeComponent();
@@ -27,6 +34,7 @@ namespace FloristeriaProyecto.Views
                 Apellidos = txtApellido.Text,
                 Documento = txtDocumento.Text,
                 Email = txtEmail.Text,
+                Image = Image,
                 Clave = txtContrasena.Text
             };
 
@@ -47,39 +55,6 @@ namespace FloristeriaProyecto.Views
 
 
 
-            //var actionSheet = await DisplayActionSheet("Title", "Cancel", "Destruction", "Button1", "Button2", "Button3");
-
-            //switch (actionSheet)
-            //{
-            //    case "Cancel":
-
-            //        // Do Something when 'Cancel' Button is pressed
-
-            //        break;
-
-            //    case "Destruction":
-
-            //        // Do Something when 'Destruction' Button is pressed
-
-            //        break;
-            //    case "Button1":
-
-            //        // Do Something when 'Button1' Button is pressed
-
-            //        break;
-
-            //    case "Button2":
-
-            //        // Do Something when 'Button2' Button is pressed
-
-            //        break;
-            //    case "Button3":
-
-            //        // Do Something when 'Button3' Button is pressed
-
-            //        break;
-
-            //}
         }
 
         private void TapBackArrow_Tapped(object sender, EventArgs e)
@@ -90,12 +65,108 @@ namespace FloristeriaProyecto.Views
         private void TapLabelTerminosCondiciones_Tapped(object sender, EventArgs e)
         {
             popupTerminosCondiciones.IsVisible = true;
-            //await Navigation.PushModalAsync(new PagePopup());
+           
         }
 
         private void BtnCerrarModal_Clicked(object sender, EventArgs e)
         {
             popupTerminosCondiciones.IsVisible = false;
+        }
+
+        private async void btnTomarFoto_Clicked(object sender, EventArgs e)
+        {
+
+            bool response = await Application.Current.MainPage.DisplayAlert("Advertencia", "Realizar la opción mendiante: ", "Camara", "Galeria");
+
+            if (response)
+                GetImageFromCamera();
+            else
+                GetImageFromGallery();
+
+
+        }
+
+        private async void GetImageFromCamera()
+        {
+            var status = await Permissions.CheckStatusAsync<Permissions.Photos>();
+            if (status == PermissionStatus.Granted)
+            {
+                try
+                {
+                    FileFoto = await CrossMedia.Current.TakePhotoAsync(new StoreCameraMediaOptions
+                    {
+                        PhotoSize = PhotoSize.Medium,
+                        SaveToAlbum = true
+                    });
+
+                    if (FileFoto == null)
+                        return;
+
+                    Imagen.Source = ImageSource.FromStream(() => { return FileFoto.GetStream(); });
+                    Image = File.ReadAllBytes(FileFoto.Path);
+                }
+                catch (Exception)
+                {
+                    Message("Advertencia", "Se produjo un error al tomar la fotografia.");
+                }
+            }
+            else
+            {
+                await Permissions.RequestAsync<Permissions.Camera>();
+            }
+
+
+        }
+
+        private async void GetImageFromGallery()
+        {
+            try
+            {
+                if (CrossMedia.Current.IsPickPhotoSupported)
+                {
+                    var FileFoto = await CrossMedia.Current.PickPhotoAsync(new PickMediaOptions
+                    {
+                        PhotoSize = PhotoSize.Medium,
+                    });
+                    if (FileFoto == null)
+                        return;
+
+                    Imagen.Source = ImageSource.FromStream(() => { return FileFoto.GetStream(); });
+                    Image = File.ReadAllBytes(FileFoto.Path);
+                }
+                else
+                {
+                    Message("Advertencia", "Se produjo un error al seleccionar la imagen");
+                }
+            }
+            catch (Exception)
+            {
+                Message("Advertencia", "Se produjo un error al seleccionar la imagen");
+            }
+
+        }
+
+
+
+        private Byte[] ConvertImageToByteArray()
+        {
+            if (FileFoto != null)
+            {
+                using (MemoryStream memory = new MemoryStream())
+                {
+                    Stream stream = FileFoto.GetStream();
+
+                    stream.CopyTo(memory);
+
+                    return memory.ToArray();
+                }
+            }
+
+            return null;
+        }
+        private async void Message(string title, string message)
+        {
+            await DisplayAlert(title, message, "OK");
         }
 
     }

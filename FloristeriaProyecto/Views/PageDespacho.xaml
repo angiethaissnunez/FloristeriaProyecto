@@ -52,46 +52,83 @@
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
 
-                        <StackLayout Grid.Column="0" Grid.Row="0" Margin="0,10">
-                            <Label TextColor="#9C2424" Text="Complete su datos" FontSize="20" HorizontalOptions="Center" VerticalOptions="Center"/>
+                        <StackLayout Grid.Column="0" Grid.Row="0" Margin="0,10" Padding="0,0,0,30">
+                            <Label TextColor="#1964BE" Text="COMPLETE SUS DATOS" FontSize="20"  HorizontalOptions="Center" VerticalOptions="Center"/>
                         </StackLayout>
 
-                        <StackLayout Grid.Column="0" Grid.Row="1" Orientation="Vertical" HorizontalOptions="Fill" Spacing="0">
-                            <Label>Nombre persona contacto:</Label>
-                            <Entry x:Name="txtPersonaContacto" TextColor="Black" Placeholder="Ejemplo: Anita(tia)"/>
+                        <StackLayout Grid.Column="0" Grid.Row="1" Orientation="Vertical" HorizontalOptions="Fill" Spacing="0" Padding="0,0,0,30">
+                            <Label FontAttributes="Bold" TextColor="Black">Nombre persona contacto:</Label>
+                            <Entry x:Name="txtPersonaContacto" TextColor="Black" Placeholder="Ejemplo: Maria"/>
                         </StackLayout>
 
-                        <StackLayout Grid.Column="0" Grid.Row="2" Orientation="Vertical" HorizontalOptions="Fill" Spacing="0">
-                            <Label>Dirección:</Label>
-                            <Entry x:Name="txtDireccion" TextColor="Black" Placeholder="Ejem: avenida 123"/>
+                        <StackLayout Grid.Column="0" Grid.Row="2" Orientation="Vertical" HorizontalOptions="Fill" Spacing="0" Padding="0,0,0,30">
+                            <Label FontAttributes="Bold" TextColor="Black">Dirección:</Label>
+                            <Entry x:Name="txtDireccion" TextColor="Black" Placeholder="Ejem: avenida, barrio o colonia"/>
                         </StackLayout>
 
-                        <StackLayout Grid.Column="0" Grid.Row="3" Orientation="Vertical" HorizontalOptions="Fill">
-                            <Label>Departamento:</Label>
+                        <StackLayout Grid.Column="0" Grid.Row="3" Orientation="Vertical" HorizontalOptions="Fill" Padding="0,0,0,30">
+                            <Label FontAttributes="Bold" TextColor="Black">Departamento:</Label>
                             <Picker x:Name="pickerDepartamento" Title="Seleccione" ItemsSource="{Binding oListaDepartamento}" ItemDisplayBinding="{Binding nombredepartamento}" SelectedIndexChanged="PickerDepartamento_SelectedIndexChanged" />
                         </StackLayout>
 
-                        <StackLayout Grid.Column="0" Grid.Row="4" Orientation="Vertical" HorizontalOptions="Fill">
-                            <Label>Provincia:</Label>
-                            <Picker x:Name="pickerProvincia" Title="Seleccione" ItemsSource="{Binding oListaProvincia}" ItemDisplayBinding="{Binding nombreprovincia}" SelectedIndexChanged="PickerProvincia_SelectedIndexChanged" />
-                        </StackLayout>
-
-                        <StackLayout Grid.Column="0" Grid.Row="5" Orientation="Vertical" HorizontalOptions="Fill">
-                            <Label>Distrito:</Label>
-                            <Picker x:Name="pickerDistrito" Title="Seleccione" ItemsSource="{Binding oListaDistrito}" ItemDisplayBinding="{Binding nombredistrito}" />
-                        </StackLayout>
-
-                        <StackLayout Grid.Column="0" Grid.Row="6" Orientation="Vertical" HorizontalOptions="Fill">
-                            <Label>Celular:</Label>
+                        <StackLayout Grid.Column="0" Grid.Row="6" Orientation="Vertical" HorizontalOptions="Fill" Padding="0,0,0,30">
+                            <Label FontAttributes="Bold" TextColor="Black" >Celular:</Label>
                             <Entry x:Name="txtCelular" TextColor="Black" Placeholder="Ejem: 96857845" Keyboard="Numeric"/>
                         </StackLayout>
 
-                        <Button Grid.Column="0" Grid.Row="7" x:Name="btnContinuar" Text="Continuar" BackgroundColor="#1964BE" TextColor="White" Clicked="BtnContinuar_Clicked"/>
+                        <Button Grid.Column="0" Grid.Row="7" x:Name="btnContinuar" Text="Continuar" BackgroundColor="#1964BE" CornerRadius="30" TextColor="White" Clicked="BtnContinuar_Clicked"/>
 
                     </Grid>
                 </ScrollView>
 
             </ContentView>
+
+            <ContentView x:Name="ContentDelivery2" Padding="10, 0" IsVisible="false" AbsoluteLayout.LayoutFlags="All">
+                <ScrollView>
+                    <Grid RowSpacing="1" Padding="10">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <StackLayout Grid.Column="0" Grid.Row="0" Margin="0,10" Padding="0,0,0,30">
+                            <Label TextColor="#1964BE" Text="COMPLETE SUS DATOS" FontSize="20"  HorizontalOptions="Center" VerticalOptions="Center"/>
+                        </StackLayout>
+
+                        <StackLayout Grid.Column="0" Grid.Row="1" Orientation="Vertical" HorizontalOptions="Fill" Spacing="0" Padding="0,0,0,30">
+                            <Label FontAttributes="Bold" TextColor="Black">Nombre persona contacto:</Label>
+                            <Entry x:Name="txtPersonaContacto2" TextColor="Black" Placeholder="Ejemplo: Maria"/>
+                        </StackLayout>
+
+                        <StackLayout Grid.Column="0" Grid.Row="2" Orientation="Vertical" HorizontalOptions="Fill" Spacing="0" Padding="0,0,0,30">
+                            <Label FontAttributes="Bold" TextColor="Black">Dirección:</Label>
+                            <Entry x:Name="txtDireccion2" TextColor="Black" Placeholder="Ejem: avenida, barrio o colonia"/>
+                        </StackLayout>
+
+                        <StackLayout Grid.Column="0" Grid.Row="6" Orientation="Vertical" HorizontalOptions="Fill" Padding="0,0,0,30">
+                            <Label FontAttributes="Bold" TextColor="Black" >Celular:</Label>
+                            <Entry x:Name="txtCelular2" TextColor="Black" Placeholder="Ejem: 96857845" Keyboard="Numeric"/>
+                        </StackLayout>
+
+                        <Button Grid.Column="0" Grid.Row="7" x:Name="btnContinuar2" Text="Continuar" BackgroundColor="#1964BE" CornerRadius="30" TextColor="White" Clicked="btnContinuar2_Clicked"/>
+
+                    </Grid>
+                </ScrollView>
+
+            </ContentView>
+
+
+
+
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

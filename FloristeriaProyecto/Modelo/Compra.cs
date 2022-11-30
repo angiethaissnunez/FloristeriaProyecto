@@ -13,6 +13,9 @@ namespace FloristeriaProyecto.Modelo
         public ObservableCollection<Bolsa> oListaBolsa { get; set; }
         public Tienda oTienda { get; set; }
         public Despacho oDepacho { get; set; }
+
+        public Ubicacion oUbicacion { get; set; }
+
         public DetallePago oDetallePago { get; set; }
     }
 }

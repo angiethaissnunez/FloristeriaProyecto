@@ -1,14 +1,23 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="FloristeriaProyecto.Views.PageRegistro">
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             mc:Ignorable="d"
+             x:Class="FloristeriaProyecto.Views.PageRegistro"
+             BackgroundColor="SkyBlue">
     <ContentPage.Content>
+        
+        
         <AbsoluteLayout Padding="0" Margin="0" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+            
+
 
             <Grid HorizontalOptions="FillAndExpand" AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
+                
                 <Frame Grid.Row="0" Padding="10" Margin="10" HasShadow="True" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
                     <StackLayout>
                         <StackLayout>
@@ -20,13 +29,26 @@
                         </StackLayout>
 
                         <StackLayout VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" Margin="5">
-                            <Label Font="20" TextColor="#860000">Completa el siguiente formulario</Label>
+                            <Label Font="20" TextColor="Black">FAVOR REGISTRARSE</Label>
+                            
                         </StackLayout>
-                        <Entry x:Name="txtNombre" Placeholder="Nombres" TextColor="Black" Text="test"/>
-                        <Entry x:Name="txtApellido" Placeholder="Apellidos" TextColor="Black" Text="user"/>
-                        <Entry x:Name="txtDocumento" Placeholder="Documento Identidad" TextColor="Black" Text="78897889"/>
-                        <Entry x:Name="txtEmail"  Placeholder="Email" TextColor="Black" Text="testuser@gmail.com"/>
-                        <Entry x:Name="txtContrasena"  Placeholder="Contraseña" IsPassword="True" TextColor="Black" Text="testuser123"/>
+
+                        <Frame Grid.Row="0" Grid.Column="1" HeightRequest="300" WidthRequest="200" Padding="3" Margin="0,20,0,0">
+
+                            <Image x:Name="Imagen" 
+                       Margin="0" 
+                       BackgroundColor="LightGray" 
+                       WidthRequest="200" 
+                       HeightRequest="200"
+                       />
+                        </Frame>
+                        <Button x:Name="btnTomarFoto" Text="Agregar Foto" HorizontalOptions="FillAndExpand" Clicked="btnTomarFoto_Clicked" CornerRadius="30" TextColor="White" Background="#1964BE"/>
+
+                        <Entry x:Name="txtNombre" Placeholder="Nombre" TextColor="Black" FontAttributes="None" HorizontalOptions="FillAndExpand" Margin="0,0,20,0"/>
+                        <Entry x:Name="txtApellido" Placeholder="Apellidos" TextColor="Black" FontAttributes="None" HorizontalOptions="FillAndExpand" Margin="0,0,20,0"/>
+                        <Entry x:Name="txtDocumento" Placeholder="Documento Identidad" TextColor="Black" FontAttributes="None" HorizontalOptions="FillAndExpand" Margin="0,0,20,0"/>
+                        <Entry x:Name="txtEmail" Placeholder="Correo Electronico" TextColor="Black" FontAttributes="None" HorizontalOptions="FillAndExpand" Margin="0,0,20,0"/>
+                        <Entry x:Name="txtContrasena"  Placeholder="Contraseña" IsPassword="True" TextColor="Black" FontAttributes="None" HorizontalOptions="FillAndExpand" Margin="0,0,20,0"/>
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="auto"/>
@@ -46,7 +68,7 @@
                         </Grid>
 
 
-                        <Button x:Name="btnRegistrar" Text="Registrarme" BackgroundColor="#1964BE" TextColor="White" Clicked="BtnRegistrar_Clicked"/>
+                        <Button x:Name="btnRegistrar" Text="Registrarme" BackgroundColor="#1964BE" TextColor="White" CornerRadius="30"  Clicked="BtnRegistrar_Clicked"/>
                     </StackLayout>
                 </Frame>
             </Grid>
@@ -55,8 +77,11 @@
                 <Frame Margin="10" Padding="10" BackgroundColor="#ffffff" VerticalOptions="CenterAndExpand" HorizontalOptions="FillAndExpand">
                     <StackLayout>
                         <Label LineBreakMode="WordWrap">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed accumsan placerat fermentum. Mauris vel dignissim eros. Mauris vulputate dolor aliquet, luctus turpis non, efficitur mi. Nulla sodales id sapien vel malesuada. Curabitur mi odio, sagittis eget eros at, auctor egestas ligula. Morbi a dolor congue, feugiat odio at, malesuada ipsum. Nullam molestie felis vel lorem pharetra, non sollicitudin magna condimentum. Mauris quis nibh lectus. Phasellus eros nunc, aliquet id lorem lacinia, pulvinar dignissim libero. Phasellus ac sapien dapibus, aliquam nibh ac, mollis nulla. Suspendisse ac finibus nisi. Nulla luctus bibendum massa at congue.
-                            Pellentesque et volutpat odio. Phasellus at tempor libero, quis congue arcu. Aliquam a viverra ipsum. Nullam metus arcu, consectetur ac feugiat in, feugiat eget lacus. In at interdum nunc. Sed eget urna efficitur, laoreet arcu sed, lacinia lacus. Aenean ornare quam sed ornare sollicitudin.
+                            La Empresa podrá, en cualquier momento y sin necesidad de previo aviso, realizar cambios y actualizaciones de las presentes Condiciones de Uso y de la Política de Privacidad.
+                            
+                            El acceso y descarga de la aplicación es gratuito salvo en lo relativo al coste de la conexión a través de la red de telecomunicaciones suministrada por el proveedor de acceso contratado por los usuarios.Determinados servicios son exclusivos para nuestros clientes y su acceso se encuentra restringido.
+                        
+                            El Usuario reconoce y acepta que el uso de los contenidos y/o servicios ofrecidos por la presente aplicación móvil será bajo su exclusivo riesgo y/o responsabilidad. El Usuario se compromete a utilizar la presente aplicación móvil y todo su contenido y Servicios de conformidad con la ley, la moral, el orden público y las presentes Condiciones de Uso, y las Condiciones Particulares que, en su caso, le sean de aplicación.
                         </Label>
                         <Button HorizontalOptions="FillAndExpand" BackgroundColor="#1964BE" Opacity="1" TextColor="White" x:Name="btnCerrarModal" Clicked="BtnCerrarModal_Clicked" Text="Aceptar"></Button>
 

@@ -1,25 +1,104 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             mc:Ignorable="d"
              x:Class="FloristeriaProyecto.Views.PageLogin">
     <StackLayout BackgroundColor="#A7A7A7" >
 
-        <StackLayout VerticalOptions="CenterAndExpand" HorizontalOptions="FillAndExpand">
-            <Frame Grid.Row="1" Padding="10" Margin="10" HasShadow="True">
-                <StackLayout>
-                    <StackLayout VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" Margin="5">
-                        <Label Font="25" TextColor="#860000">Bienvenido</Label>
+
+        <Grid>
+            <StackLayout Padding="0" Margin="0" HorizontalOptions="FillAndExpand">
+                <Frame HeightRequest="300" BackgroundColor="DeepSkyBlue" Padding="0" Margin="0">
+                    <Image Source="" Aspect="AspectFill" Margin="0"/>
+                </Frame>
+            </StackLayout>
+            <StackLayout Padding="0" Margin="10,140,10,0" HorizontalOptions="FillAndExpand">
+                <Frame  BackgroundColor="White" HeightRequest="600" HasShadow="True" Padding="0" Margin="0">
+
+                    <StackLayout>
+
+
+                        <StackLayout Margin="10">
+                        </StackLayout>
+                        <Label></Label>
+                        <Label Text="Iniciar sesion" TextColor="Black" HorizontalOptions="CenterAndExpand" FontSize="Large" />
+
+                        <StackLayout Padding="0" Margin="25,10">
+
+                            <Frame BackgroundColor="Transparent" BorderColor="DarkGray" Padding="0" HorizontalOptions="FillAndExpand" CornerRadius="30">
+                                <StackLayout Orientation="Horizontal">
+                                    <Frame BackgroundColor="SkyBlue" HeightRequest="40" WidthRequest="40" CornerRadius="30" Padding="0" Margin="5">
+                                        <Image Source="https://www.findool.com/images/avatars/avatar.png" Aspect="AspectFill" Margin="0"/>
+                                    </Frame>
+
+                                    <Entry  x:Name="txtEmail" Placeholder="Correo Electronico" TextColor="Black" FontAttributes="None" HorizontalOptions="FillAndExpand" Margin="0,0,20,0"/>
+                                </StackLayout>
+                            </Frame>
+
+                            <Frame BackgroundColor="Transparent" BorderColor="DarkGray" Margin="0,15,0,0" Padding="0" HorizontalOptions="FillAndExpand" CornerRadius="30">
+                                <StackLayout Orientation="Horizontal">
+                                    <Frame BackgroundColor="SkyBlue" HeightRequest="40" WidthRequest="40" CornerRadius="30" Padding="0" Margin="5">
+                                        <Image Source="https://images.all-free-download.com/images/graphicthumb/lock_icon_6813906.jpg" Aspect="AspectFill" Margin="0"/>
+                                    </Frame>
+
+                                    <Entry x:Name="txtContrasena" Placeholder="************" IsPassword="True" TextColor="HotPink" FontAttributes="None" HorizontalOptions="FillAndExpand" Margin="0,0,20,0"/>
+                                </StackLayout>
+                            </Frame>
+
+                            <StackLayout  Orientation="Horizontal">
+
+
+                                <Label Text="Olvido su contraseña?" TextColor="Black" FontAttributes="Italic" HorizontalOptions="EndAndExpand" FontSize="10" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" />
+
+
+                            </StackLayout>
+                            <Label></Label>
+
+                            <Button  x:Name="btnIniciarSesion" Text="Iniciar" BackgroundColor="DeepSkyBlue" TextColor="White" CornerRadius="30" Clicked="BtnIniciarSesion_Clicked"/>
+                            <Button x:Name="btnRegistrarse" Text="Registrarse" BackgroundColor="#1964BE" TextColor="White" Clicked="BtnRegistrarse_Clicked" CornerRadius="30"/>    
+                               
+                            <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand">
+                           
+
+                                <Label></Label>
+                                <Label Text="No tienes una cuenta?" TextColor="DarkGray" FontSize="Small"/>
+                             
+                               
+                              
+                            </StackLayout>
+
+                            <StackLayout Margin="0,25,0,0" Padding="0">
+                                <Grid>
+                                    <BoxView BackgroundColor="DarkGray" HeightRequest="1" WidthRequest="250"  HorizontalOptions="Center" VerticalOptions="Center"/>
+                                    <Frame BackgroundColor="White" HeightRequest="45" WidthRequest="105" CornerRadius="45" HasShadow="False" BorderColor="DarkGray" Margin="0" HorizontalOptions="Center" Padding="0">
+                                        <Label Text="Floreria" TextColor="DodgerBlue" FontSize="Small" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"/>
+                                    </Frame>
+
+
+                                </Grid>
+
+
+                            </StackLayout>
+
+
+                            <StackLayout Margin="0,25" Orientation="Horizontal" HorizontalOptions="CenterAndExpand">
+
+                            </StackLayout>
+
+                        </StackLayout>
+
+
                     </StackLayout>
 
-                    <Entry x:Name="txtEmail" Placeholder="Email" TextColor="Black" Text="testuser@gmail.com" />
-                    <Entry x:Name="txtContrasena" Placeholder="Contraseña" IsPassword="True" TextColor="Black" Text="testuser123" />
+                </Frame>
 
-                    <Button x:Name="btnIniciarSesion" Text="Iniciar Sesión" BackgroundColor="#2FB96E" TextColor="White" Clicked="BtnIniciarSesion_Clicked" />
-                    <Button x:Name="btnRegistrarse" Text="Registrarse" BackgroundColor="#1964BE" TextColor="White" Clicked="BtnRegistrarse_Clicked"/>
-                </StackLayout>
 
-            </Frame>
-        </StackLayout>
+            </StackLayout>
 
+        </Grid>
+
+        
     </StackLayout>
 </ContentPage>

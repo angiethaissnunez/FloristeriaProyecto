@@ -161,7 +161,7 @@ namespace FloristeriaProyecto.Views
         private async void BtnContinuar_Clicked(object sender, EventArgs e)
         {
             bool delivery = false;
-            string actionSheet = await DisplayActionSheet("¿Con cuál método de entrega quieres recibir tu producto?", "Cancelar", null, "Despacho a domicilio", "Retiro en tienda");
+            string actionSheet = await DisplayActionSheet("¿Con cuál método de entrega quieres recibir tu producto?", "Cancelar", null, "Despacho a domicilio", "Retiro en tienda", "Obtener mi Ubicacion Actual");
 
             switch (actionSheet)
             {
@@ -170,6 +170,10 @@ namespace FloristeriaProyecto.Views
                     await Navigation.PushAsync(new PageDespacho(oListaBolsa, delivery));
                     break;
                 case "Retiro en tienda":
+                    delivery = false;
+                    await Navigation.PushAsync(new PageDespacho(oListaBolsa, delivery));
+                    break;
+                case "Obtener mi Ubicacion Actual":
                     delivery = false;
                     await Navigation.PushAsync(new PageDespacho(oListaBolsa, delivery));
                     break;

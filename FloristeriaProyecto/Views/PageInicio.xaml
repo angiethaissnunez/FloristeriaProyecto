@@ -41,4 +41,4 @@
             <ShellContent ContentTemplate="{DataTemplate views:PagePerfil}"/>
         </Tab>
     </TabBar>
-  </Shell>
+</Shell>

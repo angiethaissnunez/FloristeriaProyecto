@@ -8,7 +8,7 @@ namespace FloristeriaProyecto
     public class AppSettings
     {
         public static string ApiFirebase = "https://appfloristeria-default-rtdb.firebaseio.com/";
-        private static string KeyAplication = "AIzaSyC-O1SLFIfJsBOUi6kAGnXsX8FGhpnWDMA";
+        public static string KeyAplication = "AIzaSyC-O1SLFIfJsBOUi6kAGnXsX8FGhpnWDMA";
 
 
         public static ResponseAuthentication oAuthentication { get; set; }

@@ -10,6 +10,9 @@ namespace FloristeriaProyecto.Modelo
         public string Apellidos { get; set; }
         public string Documento { get; set; }
         public string Email { get; set; }
+        public byte[] Image { get; set; }
         public string Clave { get; set; }
+
+        
     }
 }

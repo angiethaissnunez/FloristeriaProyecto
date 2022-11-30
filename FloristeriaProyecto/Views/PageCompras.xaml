@@ -70,7 +70,14 @@
                         </ViewCell>
                     </DataTemplate>
                 </ListView.ItemTemplate>
+               
             </ListView>
+            <Button HorizontalOptions="CenterAndExpand"
+                Text="Calificar Pedido" 
+                BackgroundColor="DeepSkyBlue"
+                x:Name="btnenviar"
+                Clicked="btnenviar_Clicked"
+                CornerRadius="30"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

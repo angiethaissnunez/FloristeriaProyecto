@@ -40,7 +40,7 @@
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
 
-                            <StackLayout Grid.Column="0" Background="#D0D0D0" HeightRequest="40" VerticalOptions="Center">
+                            <StackLayout Grid.Column="0" Background="#D0D0D0" HeightRequest="50" VerticalOptions="Center">
                                 <StackLayout.GestureRecognizers>
                                     <TapGestureRecognizer x:Name="TapMenos" Tapped="TapMenos_Tapped"/>
                                 </StackLayout.GestureRecognizers>

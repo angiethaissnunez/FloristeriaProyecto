@@ -30,5 +30,7 @@ namespace AppNotas.Modelo
 
         [JsonProperty("expiresIn")]
         public long ExpiresIn { get; set; }
+
+       
     }
 }

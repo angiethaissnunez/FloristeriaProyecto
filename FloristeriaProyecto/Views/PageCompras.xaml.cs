@@ -34,5 +34,12 @@ namespace FloristeriaProyecto.Views
             }
 
         }
+
+        private async void btnenviar_Clicked(object sender, EventArgs e)
+        {
+
+            await Navigation.PushModalAsync(new PageCalificar());
+
+        }
     }
 }
