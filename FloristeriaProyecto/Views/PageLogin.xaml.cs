@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -14,6 +14,8 @@ namespace FloristeriaProyecto.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class PageLogin : ContentPage
     {
+        ApiServiceAuthentication _userRepository = new ApiServiceAuthentication();
+
         public PageLogin()
         {
             InitializeComponent();
@@ -37,19 +39,25 @@ namespace FloristeriaProyecto.Views
             bool respuesta = await ApiServiceAuthentication.Login(oUsuario);
             if (respuesta)
             {
-                //Application.Current.MainPage = new NavigationPage(new MasterPage());
-                //Application.Current.MainPage = new MasterPage();
+
                 Application.Current.MainPage = new PageInicio();
             }
             else
             {
                 await DisplayAlert("Oops", "Usuario no encontrado", "OK");
+
+
             }
         }
 
         private void BtnRegistrarse_Clicked(object sender, EventArgs e)
         {
             Navigation.PushModalAsync(new PageRegistro());
+        }
+
+        private void ForgotTap_Tapped(object sender, EventArgs e)
+        {
+            Navigation.PushModalAsync(new Views.PageRestaurarContraseña());
         }
     }
 }

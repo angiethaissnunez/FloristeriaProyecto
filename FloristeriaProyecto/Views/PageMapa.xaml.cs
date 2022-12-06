@@ -10,73 +10,111 @@ using Xamarin.Forms.Xaml;
 using FloristeriaProyecto.Modelo;
 using FloristeriaProyecto.Service;
 using System.Collections.ObjectModel;
+using Plugin.Media.Abstractions;
+using System.Data;
+using Plugin.Geolocator;
 
 namespace FloristeriaProyecto.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class PageMapa : ContentPage
     {
-        Ubicacion ubicacion = null;
-
-        public ObservableCollection<Bolsa> oListaGlobalBolsa = new ObservableCollection<Bolsa>();
-
-        public PageMapa(Ubicacion ubicacion)
+        public Usuario Usuarios;
+        Usuario Usuario = null;
+ 
+        public PageMapa(Usuario usuario)
         {
             InitializeComponent();
             getLatitudeAndLongitude();
-            this.ubicacion = ubicacion;
+
+            Usuario = usuario;
+            
         }
-        /*  protected override void OnAppearing()
-          {
-              base.OnAppearing();
-              getLatitudeAndLongitude();
-          }*/
+
+        Usuario oGlobalUsuario;
 
         protected async override void OnAppearing()
         {
             base.OnAppearing();
 
-            try
-            {
-                var status = await Permissions.CheckStatusAsync<Permissions.LocationWhenInUse>();
-                if (status == PermissionStatus.Granted)
-                {
-                    var localizacion = await Geolocation.GetLocationAsync();
+            //try
+            //{
+            //    var status = await Permissions.CheckStatusAsync<Permissions.LocationWhenInUse>();
+            //    if (status == PermissionStatus.Granted)
+            //    {
+            //        var localizacion = await Geolocation.GetLocationAsync();
 
-                    if (localizacion != null)
+            //        if (localizacion != null)
+            //        {
+            //            var pin = new Pin()
+            //            {
+            //                Type = PinType.SearchResult,
+            //                Position = new Position(Usuario.latitud, Usuario.longitud),
+
+            //            };
+
+            //            mapa.Pins.Add(pin);
+            //            //mapa.MoveToRegion(MapSpan.FromCenterAndRadius(new Position(localizacion.Latitude, localizacion.Longitude), Distance.FromMeters(100)));
+            //            mapa.MoveToRegion(MapSpan.FromCenterAndRadius(new Position(Usuario.latitud, Usuario.longitud), Distance.FromMeters(100)));
+            //        }
+            //    }
+            //    else
+            //    {
+            //        await Permissions.RequestAsync<Permissions.LocationWhenInUse>();
+            //    }
+            //}
+            //catch (Exception e)
+            //{
+            //    if (e.Message.Equals("Location services are not enabled on device."))
+            //    {
+            //        Message("Error", "Servicio de localizacion no encendido");
+            //    }
+            //    else
+            //    {
+            //        Message("Error", e.Message);
+            //    }
+            //}
+            var current = Connectivity.NetworkAccess;
+
+            if (current == NetworkAccess.Internet)
+            {
+
+                var localizacion = CrossGeolocator.Current;
+
+                if (localizacion != null)
+                {
+                    localizacion.PositionChanged += Localizacion_PositionChanged;
+
+                    if (!localizacion.IsListening)
                     {
-                        var pin = new Pin()
-                        {
-                            Type = PinType.SearchResult,
-                            Position = new Position(ubicacion.latitud, ubicacion.longitud),
-                          //  Label = "Descripcion",
-                           // Address = Sitio.Description
-                        };
-
-                        mapa.Pins.Add(pin);
-                        //mapa.MoveToRegion(MapSpan.FromCenterAndRadius(new Position(localizacion.Latitude, localizacion.Longitude), Distance.FromMeters(100)));
-                        mapa.MoveToRegion(MapSpan.FromCenterAndRadius(new Position(ubicacion.latitud, ubicacion.longitud), Distance.FromMeters(100)));
+                        await localizacion.StartListeningAsync(TimeSpan.FromSeconds(10), 100);
                     }
+
+                    var posicion = await localizacion.GetPositionAsync();
+                    var centromapa = new Position(posicion.Latitude, posicion.Longitude);
+                    mapa.MoveToRegion(new MapSpan(centromapa, 1, 1));
                 }
                 else
                 {
-                    await Permissions.RequestAsync<Permissions.LocationWhenInUse>();
+                    var posicion = await localizacion.GetLastKnownLocationAsync();
+                    var centromapa = new Position(posicion.Latitude, posicion.Longitude);
+                    mapa.MoveToRegion(new MapSpan(centromapa, 1, 1));
                 }
             }
-            catch (Exception e)
-            {
-                if (e.Message.Equals("Location services are not enabled on device."))
-                {
-                    Message("Error", "Servicio de localizacion no encendido");
-                }
-                else
-                {
-                    Message("Error", e.Message);
-                }
-            }
+
         }
 
-      
+        private void Localizacion_PositionChanged(object sender, Plugin.Geolocator.Abstractions.PositionEventArgs e)
+        {
+            var centromapa = new Position(e.Position.Latitude, e.Position.Longitude);
+            mapa.MoveToRegion(new MapSpan(centromapa, 1, 1));
+        }
+        private async void Message(string title, string message)
+        {
+            await DisplayAlert(title, message, "OK");
+        }
+
+
         private async void getLatitudeAndLongitude()
         {
             try
@@ -111,80 +149,53 @@ namespace FloristeriaProyecto.Views
             }
         }
 
-        private async void Message(string title, string message)
-        {
-            await DisplayAlert(title, message, "OK");
-        }
+   
 
+
+       
         private async void btnGuardar_Clicked(object sender, EventArgs e)
         {
-            var current = Connectivity.NetworkAccess;
+            var status = await DisplayAlert("Aviso", $"¿Desea Guardar su ubicacion Actual?", "SI", "NO");
 
-            if (current != NetworkAccess.Internet)
-            {
-                Message("Advertencia", "Actualmente no cuenta con acceso a internet");
-                return;
-            }
-
-            if (string.IsNullOrEmpty(txtLatitude.Text) || string.IsNullOrEmpty(txtLongitude.Text))
-            {
-                Message("Aviso", "Aun no se obtiene la ubicacion");
-                getLatitudeAndLongitude();
-                return;
-            }
-
-
-            Ubicacion oUbicacion = new Ubicacion()
-            {
-                latitud = double.Parse(txtLatitude.Text),
-                longitud = double.Parse(txtLongitude.Text)
-            };
-
-            Compra oCompra = new Compra()
-            {
-                fechaCompra = DateTime.Now.ToString("dd/MM/yyyy"),
-                tipoEntrega = "ubicacion",
-                oListaBolsa = oListaGlobalBolsa,
-                oUbicacion = oUbicacion,
-                oTienda = null,
-                oDepacho = null
-            };
-
-            await Navigation.PushAsync(new PagePago(oCompra));
-
-           /* try
+            if (status)
             {
 
-
-                var sitio = new Ubicacion()
+                if (string.IsNullOrEmpty(txtLatitude.Text) || string.IsNullOrEmpty(txtLongitude.Text))
                 {
+                    Message("Aviso", "Aun no se obtiene la ubicacion");
+                    getLatitudeAndLongitude();
+                    return;
+                }
+
+
+                Usuario oUsuario = new Usuario()
+                {
+                    Nombres = oGlobalUsuario.Nombres,
+                    Apellidos = oGlobalUsuario.Apellidos,
+                    Documento = oGlobalUsuario.Documento,
+                    Image = oGlobalUsuario.Image,
+                    Clave = oGlobalUsuario.Clave,
+                    Email = oGlobalUsuario.Email,
                     latitud = double.Parse(txtLatitude.Text),
                     longitud = double.Parse(txtLongitude.Text)
+
                 };
 
-                var result = await ApiServiceFirebase.RegistrarCompra(sitio);
+                bool respuesta = await ApiServiceFirebase.GuardarCambiosUsuario(oUsuario);
 
-              
-
-                if (result)
+                if (respuesta)
                 {
-                    Message("Aviso", "Sitio agregado correctamente");
-                  //  clearComp();
+                    await DisplayAlert("Mensaje", "Se guardaron los cambios", "OK");
                 }
                 else
                 {
-                    Message("Aviso", "No se pudo agregar el sitio");
+                    await DisplayAlert("Mensaje", "Hubo un error al guardar", "OK");
                 }
-
             }
-            catch (Exception ex)
-            {
-              //  UserDialogs.Instance.HideLoading();
 
-                await Task.Delay(500);
 
-                Message("Error: ", ex.Message);
-            }*/
+
+
 
         }
     }

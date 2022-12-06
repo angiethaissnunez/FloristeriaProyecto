@@ -12,7 +12,9 @@ namespace FloristeriaProyecto.Modelo
         public string Email { get; set; }
         public byte[] Image { get; set; }
         public string Clave { get; set; }
+        public double longitud { get; set; }
+        public double latitud { get; set; }
 
-        
+
     }
 }

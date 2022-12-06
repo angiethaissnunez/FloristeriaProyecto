@@ -13,7 +13,7 @@
 
         <Frame Padding="0,0,0,0" HeightRequest="40" Grid.Row="0" Grid.Column="0">
             <Grid>
-                <Label Text="UBICACION PARA ENTREGA DEL PEDIDO" 
+                <Label Text="SU UBICACION ACTUAL" 
                        HorizontalOptions="Center"
                        VerticalOptions="Center"
                        FontSize="20"
@@ -33,13 +33,7 @@
                      Grid.Column="0">
             <StackLayout  >
             
-                <Button x:Name="btnGuardar"
-                    Text="Continuar"
-                    BackgroundColor="#2D90F9"
-                    CornerRadius="25"
-                    FontSize="16"
-                    Clicked="btnGuardar_Clicked"
-                    Margin="30,0,30,0" />
+              
             
             <Entry x:Name="txtLatitude"
                    Keyboard="Numeric"
@@ -47,6 +41,8 @@
                    HorizontalOptions="FillAndExpand" 
                    Margin="30,0,30,0"
                    IsEnabled="False"
+                   IsVisible="False"
+                  
                    />
 
                 <Entry x:Name="txtLongitude"
@@ -55,6 +51,9 @@
                         HorizontalOptions="FillAndExpand" 
                         Margin="30,0,30,0"
                         IsEnabled="False"
+                       IsVisible="False"
+                    
+                       
                    />
                 
         </StackLayout>

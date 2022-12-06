@@ -19,15 +19,70 @@ namespace FloristeriaProyecto.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class PageRegistro : ContentPage
     {
+
+        ApiServiceAuthentication _userRepository = new ApiServiceAuthentication();
         byte[] Image;
         MediaFile FileFoto = null;
         
         public PageRegistro()
         {
             InitializeComponent();
+            getLatitudeAndLongitude();
         }
         private async void BtnRegistrar_Clicked(object sender, EventArgs e)
         {
+
+            if (string.IsNullOrEmpty(txtLatitud.Text) || string.IsNullOrEmpty(txtLongitud.Text))
+            {
+                Message("Aviso", "Aun no se obtiene la ubicacion");
+                getLatitudeAndLongitude();
+                return;
+            }
+
+            if (Image == null)
+            {
+                Message("Aviso", "Aun no se a agregado una foto.");
+                return;
+            }
+
+            if (string.IsNullOrEmpty(txtNombre.Text))
+            {
+                Message("Aviso", "Debe escribir su nombre");
+                return;
+            }
+
+            if (string.IsNullOrEmpty(txtApellido.Text))
+            {
+                Message("Aviso", "Debe escribir su apellido");
+                return;
+            }
+
+            if (string.IsNullOrEmpty(txtDocumento.Text))
+            {
+                Message("Aviso", "Debe escribir su ID");
+                return;
+            }
+
+            if (string.IsNullOrEmpty(txtEmail.Text))
+            {
+                Message("Aviso", "Debe escribir un Email");
+                return;
+            }
+
+            if (string.IsNullOrEmpty(txtContrasena.Text))
+            {
+                Message("Aviso", "Debe escribir una Contraseña");
+                return;
+            }
+
+            if (txtContrasena.Text.Length < 5)
+            {
+                Message("Aviso", "Debe escribir una Contraseña mayor a 5 digitos");
+
+                return;
+            }
+           
+
             Usuario oUsuario = new Usuario()
             {
                 Nombres = txtNombre.Text,
@@ -35,7 +90,9 @@ namespace FloristeriaProyecto.Views
                 Documento = txtDocumento.Text,
                 Email = txtEmail.Text,
                 Image = Image,
-                Clave = txtContrasena.Text
+                Clave = txtContrasena.Text,
+                latitud = double.Parse(txtLatitud.Text),
+                longitud = double.Parse(txtLongitud.Text)
             };
 
             bool respuesta = await ApiServiceAuthentication.RegistrarUsuario(oUsuario);
@@ -44,7 +101,7 @@ namespace FloristeriaProyecto.Views
             {
                 await DisplayAlert("Correcto", "Usuario registrado", "Aceptar");
                 await Navigation.PopModalAsync();
-               
+
 
 
             }
@@ -52,9 +109,7 @@ namespace FloristeriaProyecto.Views
             {
                 await DisplayAlert("Oops", "No se pudo registrar", "Aceptar");
             }
-
-
-
+            
         }
 
         private void TapBackArrow_Tapped(object sender, EventArgs e)
@@ -164,6 +219,41 @@ namespace FloristeriaProyecto.Views
 
             return null;
         }
+
+        private async void getLatitudeAndLongitude()
+        {
+            try
+            {
+
+                var status = await Permissions.CheckStatusAsync<Permissions.LocationWhenInUse>();
+
+                if (status == PermissionStatus.Granted)
+                {
+                    var localizacion = await Geolocation.GetLocationAsync();
+                    txtLatitud.Text = Math.Round(localizacion.Latitude, 5) + "";
+                    txtLongitud.Text = Math.Round(localizacion.Longitude, 5) + "";
+                }
+                else
+                {
+                    await Permissions.RequestAsync<Permissions.LocationWhenInUse>();
+                }
+            }
+            catch (Exception e)
+            {
+
+                if (e.Message.Equals("Location services are not enabled on device."))
+                {
+
+                    Message("Error", "Servicio de localizacion no encendido");
+                }
+                else
+                {
+                    Message("Error", e.Message);
+                }
+
+            }
+        }
+
         private async void Message(string title, string message)
         {
             await DisplayAlert(title, message, "OK");

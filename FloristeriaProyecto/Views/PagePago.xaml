@@ -49,7 +49,8 @@
 
                         <StackLayout  Grid.Row="5">
                             <Label TextColor="Black" Text="Enviar detalle compra al email:"/>
-                            <Entry x:Name="txtEmail"/>
+                            <Entry x:Name="txtEmail"
+                                   IsEnabled="False"/>
                         </StackLayout>
 
                         <Button Grid.Row="6" x:Name="btnConfirmarPago" Text="Comfirmar Pago" TextColor="White" HeightRequest="40" BackgroundColor="#2FB96E" HorizontalOptions="FillAndExpand" Clicked="BtnConfirmarPago_Clicked"/>

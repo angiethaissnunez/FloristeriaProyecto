@@ -37,7 +37,7 @@
 
                             <Image x:Name="Imagen" 
                        Margin="0" 
-                       BackgroundColor="LightGray" 
+                       BackgroundColor="White" 
                        WidthRequest="200" 
                        HeightRequest="200"
                        />
@@ -46,9 +46,11 @@
 
                         <Entry x:Name="txtNombre" Placeholder="Nombre" TextColor="Black" FontAttributes="None" HorizontalOptions="FillAndExpand" Margin="0,0,20,0"/>
                         <Entry x:Name="txtApellido" Placeholder="Apellidos" TextColor="Black" FontAttributes="None" HorizontalOptions="FillAndExpand" Margin="0,0,20,0"/>
-                        <Entry x:Name="txtDocumento" Placeholder="Documento Identidad" TextColor="Black" FontAttributes="None" HorizontalOptions="FillAndExpand" Margin="0,0,20,0"/>
-                        <Entry x:Name="txtEmail" Placeholder="Correo Electronico" TextColor="Black" FontAttributes="None" HorizontalOptions="FillAndExpand" Margin="0,0,20,0"/>
+                        <Entry x:Name="txtDocumento" Placeholder="Documento Identidad" Keyboard="Numeric"  TextColor="Black" FontAttributes="None" HorizontalOptions="FillAndExpand" Margin="0,0,20,0"/>
+                        <Entry x:Name="txtEmail" Placeholder="Correo Electronico" Keyboard="Email" TextColor="Black" FontAttributes="None" HorizontalOptions="FillAndExpand" Margin="0,0,20,0"/>
                         <Entry x:Name="txtContrasena"  Placeholder="Contraseña" IsPassword="True" TextColor="Black" FontAttributes="None" HorizontalOptions="FillAndExpand" Margin="0,0,20,0"/>
+                        <Entry x:Name="txtLatitud"  TextColor="Black" FontAttributes="None" HorizontalOptions="FillAndExpand" Margin="0,0,20,0" IsVisible="False"/>
+                        <Entry x:Name="txtLongitud"  TextColor="Black" FontAttributes="None" HorizontalOptions="FillAndExpand" Margin="0,0,20,0" IsVisible="False"/>
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="auto"/>

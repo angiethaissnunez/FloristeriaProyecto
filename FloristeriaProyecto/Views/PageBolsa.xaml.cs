@@ -155,13 +155,13 @@ namespace FloristeriaProyecto.Views
                 total = objeto.montoTotal + total;
             }
 
-            lblMontoTotal.Text = string.Format("S/.{0}", total);
+            lblMontoTotal.Text = string.Format("L/.{0}", total);
         }
 
         private async void BtnContinuar_Clicked(object sender, EventArgs e)
         {
             bool delivery = false;
-            string actionSheet = await DisplayActionSheet("¿Con cuál método de entrega quieres recibir tu producto?", "Cancelar", null, "Despacho a domicilio", "Retiro en tienda", "Obtener mi Ubicacion Actual");
+            string actionSheet = await DisplayActionSheet("¿Con cuál método de entrega quieres recibir tu producto?", "Cancelar", null, "Despacho a domicilio", "Retiro en tienda");
 
             switch (actionSheet)
             {
@@ -173,10 +173,10 @@ namespace FloristeriaProyecto.Views
                     delivery = false;
                     await Navigation.PushAsync(new PageDespacho(oListaBolsa, delivery));
                     break;
-                case "Obtener mi Ubicacion Actual":
+               /* case "Obtener mi Ubicacion Actual":
                     delivery = false;
                     await Navigation.PushAsync(new PageDespacho(oListaBolsa, delivery));
-                    break;
+                    break;*/
                 default:
                     break;
             }

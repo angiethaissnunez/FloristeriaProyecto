@@ -14,7 +14,7 @@ namespace FloristeriaProyecto.Modelo
         public Tienda oTienda { get; set; }
         public Despacho oDepacho { get; set; }
 
-        public Ubicacion oUbicacion { get; set; }
+      //  public Ubicacion oUbicacion { get; set; }
 
         public DetallePago oDetallePago { get; set; }
     }

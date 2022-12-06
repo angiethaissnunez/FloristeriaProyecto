@@ -24,7 +24,7 @@
                                 <Label Text="{Binding nombre}" LineBreakMode="NoWrap"/>
                             </StackLayout>
                             <StackLayout Grid.Row="2">
-                                <Label Text="{Binding precio, StringFormat='S/.{0}'}"/>
+                                <Label Text="{Binding precio, StringFormat='L/.{0}'}"/>
                             </StackLayout>
                         </Grid>
                     </Frame>

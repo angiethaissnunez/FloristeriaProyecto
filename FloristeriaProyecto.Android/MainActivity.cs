@@ -7,6 +7,7 @@ using Android.Runtime;
 using Android.Widget;
 using Android.Views;
 using Android.OS;
+using Plugin.CurrentActivity;
 
 namespace FloristeriaProyecto.Droid
 {
@@ -20,6 +21,7 @@ namespace FloristeriaProyecto.Droid
             TabLayoutResource = Resource.Layout.Tabbar;
             ToolbarResource = Resource.Layout.Toolbar;
 
+            CrossCurrentActivity.Current.Init(this, savedInstanceState);
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
             global::Xamarin.FormsMaps.Init(this, savedInstanceState);

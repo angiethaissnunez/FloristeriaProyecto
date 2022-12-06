@@ -8,7 +8,7 @@ using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 namespace FloristeriaProyecto.Views
-{
+{ 
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class PageInicio : Shell
     {

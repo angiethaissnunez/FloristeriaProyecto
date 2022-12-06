@@ -16,13 +16,13 @@ namespace FloristeriaProyecto.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class PageDespacho : ContentPage
     {
-        public Ubicacion Ubicacion;
+      //  public Ubicacion Ubicacion;
 
         public List<Departamento> oListaDepartamento { get; set; }
         //public List<Provincia> oListaProvincia { get; set; }
         //public List<Distrito> oListaDistrito { get; set; }
         public List<Tienda> oListaTienda { get; set; }
-        public List<Ubicacion> oListaUbicacion { get; set; }
+      //  public List<Ubicacion> oListaUbicacion { get; set; }
 
         public ObservableCollection<Bolsa> oListaGlobalBolsa = new ObservableCollection<Bolsa>();
         public PageDespacho(ObservableCollection<Bolsa> oListaBolsa, bool delivery)
@@ -34,17 +34,13 @@ namespace FloristeriaProyecto.Views
                 obtenerDepartamento();
                 ContentDelivery.IsVisible = true;
             }
-            else if(delivery)
+            else 
             {
                 Title = "Retiro";
                 obtenerTiendas();
                 ContentRetiro.IsVisible = true;
-            } else
-            {
-                Title = "Ubicacion";
-                obtenerUbicacionUsuario();
-                ContentDelivery.IsVisible = true;
-            }
+            } 
+            
 
             oListaGlobalBolsa = oListaBolsa;
 
@@ -64,7 +60,7 @@ namespace FloristeriaProyecto.Views
 
         private async void obtenerUbicacionUsuario()
         {
-            await Navigation.PushAsync(new PageMapa(Ubicacion));
+           // await Navigation.PushAsync(new PageMapa(Ubicacion));
            // oListaUbicacion = await ApiServiceFirebase.ObtenerDepartamentos2();
 
            /* try
@@ -146,7 +142,7 @@ namespace FloristeriaProyecto.Views
                 oListaBolsa = oListaGlobalBolsa,
                 oDepacho = oDespacho,
                 oTienda = null,
-                oUbicacion = null
+               // oUbicacion = null
             };
 
             await Navigation.PushAsync(new PagePago(oCompra));
@@ -163,18 +159,24 @@ namespace FloristeriaProyecto.Views
                 oListaBolsa = oListaGlobalBolsa,
                 oTienda = oTienda,
                 oDepacho = null,
-                oUbicacion = null
+              //  oUbicacion = null
             };
 
             await Navigation.PushAsync(new PagePago(oCompra));
         }
 
-        private async void btnContinuar2_Clicked(object sender, EventArgs e)
-        {
-            await Navigation.PushAsync(new PageMapa(Ubicacion));
+        //private async void btnObtenerUbicacionDespacho2_Clicked(object sender, EventArgs e)
+        //{
+        //    await Navigation.PushAsync(new PageObteniendoUbicacion(Ubicacion));
 
-        }
+        //}
 
-        
+        /* private async void btnContinuar2_Clicked(object sender, EventArgs e)
+         {
+             await Navigation.PushAsync(new PageMapa(Ubicacion));
+
+         }*/
+
+
     }
 }

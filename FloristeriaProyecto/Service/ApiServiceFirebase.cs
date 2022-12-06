@@ -27,9 +27,6 @@ namespace FloristeriaProyecto.Service
         {
             IsEnabled = true;
         }
-
-
-
         public static async Task<bool> RegistrarUsuario(Usuario oUsuario, ResponseAuthentication oResponse)
         {
             try
@@ -43,57 +40,34 @@ namespace FloristeriaProyecto.Service
                 var response = await client.PutAsync(
                     string.Format(formatoapi, "usuarios", oResponse.LocalId, oResponse.IdToken),
                     content);
-                if (response.StatusCode.Equals(HttpStatusCode.OK))
-                {
 
-                    
+                if (response.StatusCode.Equals(HttpStatusCode.OK))
+                {//enviar mensaje verificacion
+                    string WebAPIkey = "AIzaSyC-O1SLFIfJsBOUi6kAGnXsX8FGhpnWDMA";
+                    var action = await App.Current.MainPage.DisplayAlert("Alerta", "Su correo electrónico no está activado, ¿quiere enviar enlace de Verificación?!", "Yes", "No");
+
+                    if (action)
+                    {
+                        var authProvider = new FirebaseAuthProvider(new FirebaseConfig(WebAPIkey));
+
+                        await authProvider.SendEmailVerificationAsync(oResponse.IdToken);
+                    }
+                    //persistencia de datos
+                    var serializedcontnet = JsonConvert.SerializeObject(content);
+                    Preferences.Set("MyFirebaseRefreshToken", serializedcontnet);
+
                     return true;
                 }
                 else
                 {
                     return false;
                 }
-
-
-
             }
             catch (Exception ex)
             {
                 string t = ex.Message;
                 return false;
             }
-           /* string WebAPIkey = "AIzaSyC-O1SLFIfJsBOUi6kAGnXsX8FGhpnWDMA";
-
-            try
-            {
-                var authProvider = new FirebaseAuthProvider(new FirebaseConfig(WebAPIkey));
-                var auth = await authProvider.CreateUserWithEmailAndPasswordAsync(oUsuario.Email.ToString(),oUsuario.Clave.ToString());
-                string gettoken = auth.FirebaseToken;
-                var content = await auth.GetFreshAuthAsync();
-
-                var serializedcontnet = JsonConvert.SerializeObject(content);
-                Preferences.Set("MyFirebaseRefreshToken", serializedcontnet);
-
-                if (content.User.IsEmailVerified == false)
-                {
-                    var action = await App.Current.MainPage.DisplayAlert("Alerta", "Su correo electrónico no está activado, ¿quiere enviar enlace de Verificación?!", "Yes", "No");
-
-                    if (action)
-                    {
-                        
-                        await authProvider.SendEmailVerificationAsync(gettoken);
-                        Application.Current.MainPage = new PageLogin();
-
-
-                    }
-
-                }
-            }
-            catch (Exception ex)
-            {
-                await App.Current.MainPage.DisplayAlert("Alert", ex.Message, "OK");
-            }*/
-
         }
 
 
@@ -203,7 +177,7 @@ namespace FloristeriaProyecto.Service
 
 
                 string apiformat = string.Concat(AppSettings.ApiFirebase, "usuarios/{0}.json?auth={1}");
-                var response = await client.PutAsync(string.Format(apiformat, AppSettings.oAuthentication.LocalId, AppSettings.oAuthentication.IdToken),content);
+                var response = await client.PutAsync(string.Format(apiformat, AppSettings.oAuthentication.LocalId, AppSettings.oAuthentication.IdToken), content);
                 if (response.StatusCode.Equals(HttpStatusCode.OK))
                 {
                     return true;
@@ -377,47 +351,47 @@ namespace FloristeriaProyecto.Service
             }
         }
 
-        public static async Task<List<Ubicacion>> ObtenerDepartamentos2()
-        {
-            Dictionary<string, Ubicacion> oObject = new Dictionary<string, Ubicacion>();
-            List<Ubicacion> oListaUbicacion = new List<Ubicacion>();
-            try
-            {
-                HttpClient client = new HttpClient();
-                string apiformat = string.Concat(AppSettings.ApiFirebase, "ubigeo/departamento.json?auth={0}");
-                var response = await client.GetAsync(string.Format(apiformat, AppSettings.oAuthentication.IdToken));
-                if (response.StatusCode.Equals(HttpStatusCode.OK))
-                {
-                    var jsonstring = await response.Content.ReadAsStringAsync();
+        /* public static async Task<List<Ubicacion>> ObtenerDepartamentos2()
+         {
+             Dictionary<string, Ubicacion> oObject = new Dictionary<string, Ubicacion>();
+             List<Ubicacion> oListaUbicacion = new List<Ubicacion>();
+             try
+             {
+                 HttpClient client = new HttpClient();
+                 string apiformat = string.Concat(AppSettings.ApiFirebase, "ubigeo/departamento.json?auth={0}");
+                 var response = await client.GetAsync(string.Format(apiformat, AppSettings.oAuthentication.IdToken));
+                 if (response.StatusCode.Equals(HttpStatusCode.OK))
+                 {
+                     var jsonstring = await response.Content.ReadAsStringAsync();
 
-                    if (jsonstring != "null")
-                    {
-                        oObject = JsonConvert.DeserializeObject<Dictionary<string, Ubicacion>>(jsonstring);
-                        foreach (KeyValuePair<string, Ubicacion> item in oObject)
-                        {
-                            oListaUbicacion.Add(new Ubicacion()
-                            {
-                                longitud = item.Value.longitud,
-                                latitud = item.Value.latitud,
-                            });
-                        }
-                    }
+                     if (jsonstring != "null")
+                     {
+                         oObject = JsonConvert.DeserializeObject<Dictionary<string, Ubicacion>>(jsonstring);
+                         foreach (KeyValuePair<string, Ubicacion> item in oObject)
+                         {
+                             oListaUbicacion.Add(new Ubicacion()
+                             {
+                                 longitud = item.Value.longitud,
+                                 latitud = item.Value.latitud,
+                             });
+                         }
+                     }
 
-                    return oListaUbicacion;
-                }
-                else
-                {
-                    oListaUbicacion = null;
-                    return oListaUbicacion;
-                }
-            }
-            catch (Exception ex)
-            {
-                string t = ex.Message;
-                oListaUbicacion = null;
-                return oListaUbicacion;
-            }
-        }
+                     return oListaUbicacion;
+                 }
+                 else
+                 {
+                     oListaUbicacion = null;
+                     return oListaUbicacion;
+                 }
+             }
+             catch (Exception ex)
+             {
+                 string t = ex.Message;
+                 oListaUbicacion = null;
+                 return oListaUbicacion;
+             }
+         }*/
 
 
         public static async Task<List<Provincia>> ObtenerProvincias(string p_nombredepartamento)
@@ -438,7 +412,7 @@ namespace FloristeriaProyecto.Service
                         oObject = JsonConvert.DeserializeObject<Dictionary<string, Provincia>>(jsonstring);
                         foreach (KeyValuePair<string, Provincia> item in oObject)
                         {
-                            if(item.Value.nombredepartamento == p_nombredepartamento)
+                            if (item.Value.nombredepartamento == p_nombredepartamento)
                             {
                                 oListaProvincia.Add(new Provincia()
                                 {
@@ -446,7 +420,7 @@ namespace FloristeriaProyecto.Service
                                     nombreprovincia = item.Value.nombreprovincia
                                 });
                             }
-                            
+
                         }
                     }
 
@@ -563,7 +537,7 @@ namespace FloristeriaProyecto.Service
         {
             try
             {
-                
+
                 HttpClient client = new HttpClient();
                 var body = JsonConvert.SerializeObject(oCompra);
                 var content = new StringContent(body, Encoding.UTF8, "application/json");
@@ -597,7 +571,7 @@ namespace FloristeriaProyecto.Service
             {
                 HttpClient client = new HttpClient();
                 string apiformat = string.Concat(AppSettings.ApiFirebase, "compra/{0}.json?auth={1}");
-                var response = await client.GetAsync(string.Format(apiformat,AppSettings.oAuthentication.LocalId, AppSettings.oAuthentication.IdToken));
+                var response = await client.GetAsync(string.Format(apiformat, AppSettings.oAuthentication.LocalId, AppSettings.oAuthentication.IdToken));
                 if (response.StatusCode.Equals(HttpStatusCode.OK))
                 {
                     var jsonstring = await response.Content.ReadAsStringAsync();
@@ -615,7 +589,7 @@ namespace FloristeriaProyecto.Service
                                 oDetallePago = item.Value.oDetallePago,
                                 oListaBolsa = item.Value.oListaBolsa,
                                 oTienda = item.Value.oTienda,
-                                oUbicacion = item.Value.oUbicacion
+                                //oUbicacion = item.Value.oUbicacion
                             });
                         }
                     }

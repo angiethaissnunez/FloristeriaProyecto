@@ -2,6 +2,7 @@
 using FloristeriaProyecto.Service;
 using Plugin.Media;
 using Plugin.Media.Abstractions;
+using Rating;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -17,6 +18,8 @@ namespace FloristeriaProyecto.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class PagePerfil : ContentPage
     {
+        public Usuario Usuarios;
+
         byte[] Image;
         MediaFile FileFoto = null;
         public PagePerfil()
@@ -46,6 +49,7 @@ namespace FloristeriaProyecto.Views
                 Apellidos = txtApellido.Text,
                 Documento = txtDocumento.Text,
                 Image = Image,
+                // Clave = txtPassword.Text,
                 Clave = oGlobalUsuario.Clave,
                 Email = oGlobalUsuario.Email
 
@@ -74,6 +78,7 @@ namespace FloristeriaProyecto.Views
                 Imagen.Source = GetImageResourseFromBytes(oGlobalUsuario.Image);
                 txtNombre.Text = oGlobalUsuario.Nombres;
                 txtApellido.Text = oGlobalUsuario.Apellidos;
+              //  txtPassword.Text = oGlobalUsuario.Clave;
                 txtDocumento.Text = oGlobalUsuario.Documento;
                 txtEmail.Text = oGlobalUsuario.Email;
 
@@ -190,6 +195,17 @@ namespace FloristeriaProyecto.Views
             }
 
             return null;
+        }
+
+        private async void VerUbicacionTap_Tapped(object sender, EventArgs e)
+        {
+            var status = await DisplayAlert("Aviso", $"¿Desea ir a la ubicacion indicada?", "SI", "NO");
+
+            if (status)
+            {
+                await Navigation.PushModalAsync(new PageMapa(Usuarios));
+            }
+
         }
     }
 }

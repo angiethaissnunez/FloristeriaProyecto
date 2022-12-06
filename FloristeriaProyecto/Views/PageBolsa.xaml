@@ -20,7 +20,7 @@
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
                         <Label VerticalOptions="Center" HorizontalOptions="Center" Grid.Column="0">Monto Total:</Label>
-                        <Label x:Name="lblMontoTotal" VerticalOptions="Center" HorizontalOptions="Center" Grid.Column="1" TextColor="#9C2424"  FontAttributes="Bold">S/.0</Label>
+                        <Label x:Name="lblMontoTotal" VerticalOptions="Center" HorizontalOptions="Center" Grid.Column="1" TextColor="#9C2424"  FontAttributes="Bold">L/.0</Label>
                         <Button VerticalOptions="Center" HorizontalOptions="Center" Grid.Column="2" x:Name="btnContinuar" Text="Continuar" 
                                                     BackgroundColor="#2FB96E" FontSize="12" HeightRequest="35"
                                                     TextColor="White" Clicked="BtnContinuar_Clicked" Padding="0" />
@@ -88,14 +88,14 @@
                                                         <Label Text="Precio Unidad"/>
                                                     </StackLayout>
                                                     <StackLayout Grid.Column="1" Grid.Row="1" HorizontalOptions="End">
-                                                        <Label Text="{Binding producto.precio, StringFormat='S/.{0}'}"/>
+                                                        <Label Text="{Binding producto.precio, StringFormat='L/.{0}'}"/>
                                                     </StackLayout>
 
                                                     <StackLayout Grid.Column="0" Grid.Row="2" HorizontalOptions="Start">
                                                         <Label Text="Precio Total"  FontAttributes="Bold"/>
                                                     </StackLayout>
                                                     <StackLayout Grid.Column="1" Grid.Row="2" HorizontalOptions="End">
-                                                        <Label Text="{Binding montoTotal, StringFormat='S/.{0}'}" TextColor="#9C2424"/>
+                                                        <Label Text="{Binding montoTotal, StringFormat='L/.{0}'}" TextColor="#9C2424"/>
                                                     </StackLayout>
 
                                                     <Button x:Name="btnEliminar" Grid.ColumnSpan="2" Grid.Row="3" Text="Retirar de bolsa" CommandParameter="{Binding idbolsa}" 

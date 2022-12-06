@@ -5,16 +5,17 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              mc:Ignorable="d"
              x:Class="FloristeriaProyecto.Views.PageLogin">
-    <StackLayout BackgroundColor="#A7A7A7" >
+
+    <StackLayout BackgroundColor="White" >
 
 
         <Grid>
             <StackLayout Padding="0" Margin="0" HorizontalOptions="FillAndExpand">
                 <Frame HeightRequest="300" BackgroundColor="DeepSkyBlue" Padding="0" Margin="0">
-                    <Image Source="" Aspect="AspectFill" Margin="0"/>
+                    <Image Source="store.png" Aspect="AspectFill" Margin="0"/>
                 </Frame>
             </StackLayout>
-            <StackLayout Padding="0" Margin="10,140,10,0" HorizontalOptions="FillAndExpand">
+            <StackLayout Padding="0" Margin="10,300,10,0" HorizontalOptions="FillAndExpand">
                 <Frame  BackgroundColor="White" HeightRequest="600" HasShadow="True" Padding="0" Margin="0">
 
                     <StackLayout>
@@ -50,8 +51,19 @@
                             <StackLayout  Orientation="Horizontal">
 
 
-                                <Label Text="Olvido su contraseña?" TextColor="Black" FontAttributes="Italic" HorizontalOptions="EndAndExpand" FontSize="10" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" />
+                                <Label Text="Olvido su contraseña?" 
+                                       TextColor="DeepSkyBlue" 
+                                       FontAttributes="Italic"
+                                       HorizontalOptions="EndAndExpand" 
+                                       FontSize="15"
+                                       VerticalTextAlignment="Center" 
+                                       HorizontalTextAlignment="Center" >
 
+                                    <Label.GestureRecognizers>
+                                        <TapGestureRecognizer x:Name="ForgotTap"
+                                              Tapped="ForgotTap_Tapped"></TapGestureRecognizer>
+                                    </Label.GestureRecognizers>
+                                </Label>
 
                             </StackLayout>
                             <Label></Label>
@@ -64,23 +76,10 @@
 
                                 <Label></Label>
                                 <Label Text="No tienes una cuenta?" TextColor="DarkGray" FontSize="Small"/>
-                             
-                               
-                              
+                        
                             </StackLayout>
 
-                            <StackLayout Margin="0,25,0,0" Padding="0">
-                                <Grid>
-                                    <BoxView BackgroundColor="DarkGray" HeightRequest="1" WidthRequest="250"  HorizontalOptions="Center" VerticalOptions="Center"/>
-                                    <Frame BackgroundColor="White" HeightRequest="45" WidthRequest="105" CornerRadius="45" HasShadow="False" BorderColor="DarkGray" Margin="0" HorizontalOptions="Center" Padding="0">
-                                        <Label Text="Floreria" TextColor="DodgerBlue" FontSize="Small" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"/>
-                                    </Frame>
-
-
-                                </Grid>
-
-
-                            </StackLayout>
+                            
 
 
                             <StackLayout Margin="0,25" Orientation="Horizontal" HorizontalOptions="CenterAndExpand">

@@ -27,7 +27,7 @@ namespace FloristeriaProyecto.Views
             txtNombre.Text = oProducto.nombre;
             txtDescripcion.Text = oProducto.descripcion;
             txtDetalle.Text = oProducto.detalle;
-            txtPrecio.Text = string.Format("S/.{0}", oProducto.precio.ToString());
+            txtPrecio.Text = string.Format("L/.{0}", oProducto.precio.ToString());
         }
 
         private void TapMenos_Tapped(object sender, EventArgs e)
