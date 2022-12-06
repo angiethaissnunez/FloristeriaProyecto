@@ -19,8 +19,6 @@ namespace FloristeriaProyecto.Views
       //  public Ubicacion Ubicacion;
 
         public List<Departamento> oListaDepartamento { get; set; }
-        //public List<Provincia> oListaProvincia { get; set; }
-        //public List<Distrito> oListaDistrito { get; set; }
         public List<Tienda> oListaTienda { get; set; }
       //  public List<Ubicacion> oListaUbicacion { get; set; }
 
@@ -58,34 +56,7 @@ namespace FloristeriaProyecto.Views
             pickerDepartamento.ItemsSource = oListaDepartamento;
         }
 
-        private async void obtenerUbicacionUsuario()
-        {
-           // await Navigation.PushAsync(new PageMapa(Ubicacion));
-           // oListaUbicacion = await ApiServiceFirebase.ObtenerDepartamentos2();
-
-           /* try
-            {
-                // Site contiene toda la data del item seleccionado
-                if (Ubicacion == null)
-                {
-                    Message("Aviso", "Seleccione un sitio");
-                    return;
-                }
-
-                var status = await DisplayAlert("Aviso", $"¿Desea ir a la ubicacion indicada?", "SI", "NO");
-
-                if (status)
-                {
-                    await Navigation.PushAsync(new PageMapa(Ubicacion));
-                }
-
-            }
-            catch (Exception ex)
-            {
-                Message("Error:", ex.Message);
-            }*/
-            // pickerDepartamento2.ItemsSource = oListaUbicacion;
-        }
+       
 
         private async void Message(string title, string message)
         {
@@ -95,16 +66,7 @@ namespace FloristeriaProyecto.Views
         private async void PickerDepartamento_SelectedIndexChanged(object sender, EventArgs e)
         {
             Departamento oDepartamento = (Departamento)((Picker)sender).SelectedItem;
-            //oListaProvincia = await ApiServiceFirebase.ObtenerProvincias(oDepartamento.nombredepartamento);
-           // pickerProvincia.ItemsSource = oListaProvincia;
         }
-
-     /*  private async void PickerProvincia_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            Provincia oProvincia = (Provincia)((Picker)sender).SelectedItem;
-          //  oListaDistrito = await ApiServiceFirebase.ObtenerDistrito(oProvincia.nombreprovincia);
-           // pickerDistrito.ItemsSource = oListaDistrito;
-        }*/
 
 
 
@@ -138,7 +100,7 @@ namespace FloristeriaProyecto.Views
             Compra oCompra = new Compra()
             {
                 fechaCompra = DateTime.Now.ToString("dd/MM/yyyy"),
-                tipoEntrega = "despacho",
+                tipoEntrega = "Despacho",
                 oListaBolsa = oListaGlobalBolsa,
                 oDepacho = oDespacho,
                 oTienda = null,
@@ -155,7 +117,7 @@ namespace FloristeriaProyecto.Views
             Compra oCompra = new Compra()
             {
                 fechaCompra = DateTime.Now.ToString("dd/MM/yyyy"),
-                tipoEntrega = "retiro",
+                tipoEntrega = "Retiro",
                 oListaBolsa = oListaGlobalBolsa,
                 oTienda = oTienda,
                 oDepacho = null,
